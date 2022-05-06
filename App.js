@@ -1,19 +1,25 @@
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 
 // Redux
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
+//Navigation
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+const Stack = createNativeStackNavigator();
+
 // Base application
-import Scanner from "./src/Scanner";
+import HomeScreen from "./screens/HomeScreen";
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Provider store={store}>
-        <Scanner />
-      </Provider>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
