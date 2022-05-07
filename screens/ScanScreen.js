@@ -1,13 +1,11 @@
-import * as React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-import Scanner from "../src/Scanner";
-
-export default function HomeScreen({ navigation }) {
+export default function ScanScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Button title="Scan" onPress={() => navigation.navigate("Scanner")} />
-      {/*<Scanner /> */}
+      <Text> Hello from Scanner </Text>
+      <Button title="Initiate Scan" onPress={() => initScan()} />
+      <Button title="Go Back" onPress={() => navigation.goBack()} />
     </View>
   );
 }

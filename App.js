@@ -11,6 +11,7 @@ const Stack = createNativeStackNavigator();
 
 // Base application
 import HomeScreen from "./screens/HomeScreen";
+import ScanScreen from "./screens/ScanScreen";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Scanner" component={ScanScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
