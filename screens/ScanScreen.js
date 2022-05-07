@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 import { useSelector, useDispatch } from "react-redux";
-import { SCAN } from "../redux/scanSlice";
+import { SCAN, RESET } from "../redux/scanSlice";
 
 import ProductCard from "../src/ProductCard";
 
@@ -11,7 +11,6 @@ export default function ScanScreen({ navigation }) {
   // Scan variables
   const [hasPermission, setHasPermission] = useState(null);
   const [scan, setScan] = useState(false);
-  const [scanned, setScanned] = useState(false);
 
   // Redux storage
   const data = useSelector((state) => state.scanner.value);
@@ -34,14 +33,18 @@ export default function ScanScreen({ navigation }) {
   }
 
   // When scan button is pressed, trigger conditional display
-  const initScan = () => {
+  const handleScan = () => {
     console.log("Initating scan...");
     setScan(true);
   };
 
+  // Clears the scanned data from redux
+  const handleReset = () => {
+    dispatch(RESET());
+  };
+
   // Print scan results to user, store in redux, reset conditional display
   const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
     let payload = {
       value: data,
       type: type,
@@ -56,13 +59,14 @@ export default function ScanScreen({ navigation }) {
       {scan && (
         <View style={styles.cover}>
           <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            onBarCodeScanned={scan ? handleBarCodeScanned : undefined}
             style={StyleSheet.absoluteFillObject}
           />
         </View>
       )}
       <ProductCard data={data} />
-      <Button title="Initiate Scan" onPress={() => initScan()} />
+      <Button title="Initiate Scan" onPress={() => handleScan()} />
+      <Button title="Reset" onPress={() => handleReset()} />
       <Button title="Go Back" onPress={() => navigation.goBack()} />
     </View>
   );
