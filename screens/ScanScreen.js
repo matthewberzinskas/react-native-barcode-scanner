@@ -5,6 +5,8 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { useSelector, useDispatch } from "react-redux";
 import { SCAN } from "../redux/scanSlice";
 
+import ProductCard from "../src/ProductCard";
+
 export default function ScanScreen({ navigation }) {
   // Scan variables
   const [hasPermission, setHasPermission] = useState(null);
@@ -40,8 +42,12 @@ export default function ScanScreen({ navigation }) {
   // Print scan results to user, store in redux, reset conditional display
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    let payload = {
+      value: data,
+      type: type,
+    };
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    dispatch(SCAN(data));
+    dispatch(SCAN(payload));
     setScan(false);
   };
 
@@ -55,7 +61,7 @@ export default function ScanScreen({ navigation }) {
           />
         </View>
       )}
-      <Text> Scan Data: {data}</Text>
+      <ProductCard data={data} />
       <Button title="Initiate Scan" onPress={() => initScan()} />
       <Button title="Go Back" onPress={() => navigation.goBack()} />
     </View>
