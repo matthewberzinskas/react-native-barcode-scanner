@@ -9,10 +9,18 @@ export default function ProductCard(props) {
   console.log(JSON.stringify(data, null, 2));
 
   return (
-    <View>
+    <View style={styles.product_container}>
       <Text>Product Information: </Text>
       <Text>TYPE: {data.type} </Text>
       <Text>EPC: {data.value} </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  product_container: {
+    borderWidth: 2,
+    borderColor: "red",
+    width: "80%",
+  },
+});

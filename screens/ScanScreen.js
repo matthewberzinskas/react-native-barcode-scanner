@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { Dimensions, View, Text, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -65,9 +65,11 @@ export default function ScanScreen({ navigation }) {
         </View>
       )}
       <ProductCard data={data} />
-      <Button title="Initiate Scan" onPress={() => handleScan()} />
-      <Button title="Reset" onPress={() => handleReset()} />
-      <Button title="Go Back" onPress={() => navigation.goBack()} />
+      <View style={styles.buttonGroup}>
+        <Button title="Initiate Scan" onPress={() => handleScan()} />
+        <Button title="Reset" onPress={() => handleReset()} />
+        <Button title="Go Back" onPress={() => navigation.goBack()} />
+      </View>
     </View>
   );
 }
@@ -81,7 +83,17 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    borderWidth: 1,
+    padding: 5,
+    borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttonGroup: {
+    borderWidth: 2,
+    borderColor: "green",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
   },
 });
