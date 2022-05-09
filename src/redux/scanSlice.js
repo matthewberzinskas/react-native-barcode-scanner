@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   type: "",
   value: 0,
+  data: {},
 };
 
 export const scanSlice = createSlice({
@@ -13,6 +14,9 @@ export const scanSlice = createSlice({
       state.value = action.payload.value;
       state.type = action.payload.type;
     },
+    SET: (state, action) => {
+      state.data = action.payload;
+    },
     RESET: (state) => {
       state.value = 0;
       state.type = "";
@@ -20,5 +24,5 @@ export const scanSlice = createSlice({
   },
 });
 
-export const { SCAN, RESET } = scanSlice.actions;
+export const { SCAN, RESET, SET } = scanSlice.actions;
 export default scanSlice.reducer;
